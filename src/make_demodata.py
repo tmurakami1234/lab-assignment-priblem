@@ -25,17 +25,6 @@ def is_dir(string):
     return string
 
 
-def is_in(string, _set=None):
-    '''
-    stringが_setに含まれるか判定する関数.  get_arguments関数で用いている.
-    '''
-    if _set is not None and string not in _set:
-        raise argparse.ArgumentTypeError(
-            f'\'{string}\' is not in following valid key words.\n{_set}'
-        )
-    return string
-
-
 def get_arguments():
     '''
     引数処理を行う関数.
@@ -85,7 +74,8 @@ def get_arguments():
     )
     p.add_argument(
         '--opt',
-        type=lambda string: is_in(string, _set=opt),
+        type=str,
+        choices=opt,
         default=opt[0],
         metavar='STRING',
         help='''
