@@ -12,8 +12,7 @@ $ python lab-assignment-problem/src/main.py --input input.json
 
 `--input`に指定するjsonファイルは以下のように記述します.
 
-```bash
-$ cat input.json
+```json
 {
   "students": {
     "Student_0": {
