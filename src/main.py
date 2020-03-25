@@ -107,6 +107,9 @@ def save(assignment, path, name):
 
 
 def print_assignment(assignment, data):
+    '''
+    配属結果を標準出力する関数.
+    '''
     msg = '{\n'
     for t in data['teachers'].keys():
         msg += f'  \"{t}\" (capacity: {data["teachers"][t]["capacity"]}): [\n'
