@@ -1,3 +1,5 @@
 *~
 etc
-
+output
+src/*~
+src/__pycache__

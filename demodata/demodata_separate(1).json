@@ -1,0 +1,661 @@
+{
+  "students": {
+    "Student_0": {
+      "choice": {
+        "Teacher_0": 6,
+        "Teacher_10": 2,
+        "Teacher_11": 1,
+        "Teacher_12": 9,
+        "Teacher_14": 8,
+        "Teacher_3": 10,
+        "Teacher_4": 3,
+        "Teacher_5": 7,
+        "Teacher_8": 4,
+        "Teacher_9": 5
+      }
+    },
+    "Student_1": {
+      "choice": {
+        "Teacher_0": 5,
+        "Teacher_1": 2,
+        "Teacher_11": 9,
+        "Teacher_13": 1,
+        "Teacher_3": 10,
+        "Teacher_4": 6,
+        "Teacher_5": 7,
+        "Teacher_7": 4,
+        "Teacher_8": 8,
+        "Teacher_9": 3
+      }
+    },
+    "Student_10": {
+      "choice": {
+        "Teacher_1": 10,
+        "Teacher_10": 2,
+        "Teacher_11": 5,
+        "Teacher_13": 3,
+        "Teacher_14": 9,
+        "Teacher_3": 7,
+        "Teacher_5": 4,
+        "Teacher_6": 8,
+        "Teacher_7": 6,
+        "Teacher_8": 1
+      }
+    },
+    "Student_11": {
+      "choice": {
+        "Teacher_1": 9,
+        "Teacher_10": 4,
+        "Teacher_11": 1,
+        "Teacher_13": 5,
+        "Teacher_2": 2,
+        "Teacher_3": 7,
+        "Teacher_4": 10,
+        "Teacher_6": 3,
+        "Teacher_8": 8,
+        "Teacher_9": 6
+      }
+    },
+    "Student_12": {
+      "choice": {
+        "Teacher_10": 1,
+        "Teacher_12": 6,
+        "Teacher_13": 4,
+        "Teacher_2": 5,
+        "Teacher_3": 3,
+        "Teacher_4": 10,
+        "Teacher_5": 8,
+        "Teacher_7": 9,
+        "Teacher_8": 7,
+        "Teacher_9": 2
+      }
+    },
+    "Student_13": {
+      "choice": {
+        "Teacher_0": 2,
+        "Teacher_1": 6,
+        "Teacher_10": 9,
+        "Teacher_11": 1,
+        "Teacher_13": 5,
+        "Teacher_14": 7,
+        "Teacher_2": 8,
+        "Teacher_4": 3,
+        "Teacher_6": 4,
+        "Teacher_7": 10
+      }
+    },
+    "Student_14": {
+      "choice": {
+        "Teacher_0": 8,
+        "Teacher_11": 4,
+        "Teacher_13": 10,
+        "Teacher_14": 9,
+        "Teacher_3": 1,
+        "Teacher_4": 5,
+        "Teacher_5": 3,
+        "Teacher_7": 6,
+        "Teacher_8": 2,
+        "Teacher_9": 7
+      }
+    },
+    "Student_15": {
+      "choice": {
+        "Teacher_0": 1,
+        "Teacher_10": 7,
+        "Teacher_12": 2,
+        "Teacher_14": 8,
+        "Teacher_2": 10,
+        "Teacher_5": 9,
+        "Teacher_6": 5,
+        "Teacher_7": 6,
+        "Teacher_8": 4,
+        "Teacher_9": 3
+      }
+    },
+    "Student_16": {
+      "choice": {
+        "Teacher_0": 3,
+        "Teacher_1": 6,
+        "Teacher_10": 8,
+        "Teacher_11": 1,
+        "Teacher_12": 10,
+        "Teacher_13": 4,
+        "Teacher_14": 7,
+        "Teacher_4": 5,
+        "Teacher_7": 9,
+        "Teacher_9": 2
+      }
+    },
+    "Student_17": {
+      "choice": {
+        "Teacher_0": 9,
+        "Teacher_11": 4,
+        "Teacher_12": 10,
+        "Teacher_14": 1,
+        "Teacher_3": 6,
+        "Teacher_4": 8,
+        "Teacher_5": 2,
+        "Teacher_6": 7,
+        "Teacher_7": 5,
+        "Teacher_8": 3
+      }
+    },
+    "Student_18": {
+      "choice": {
+        "Teacher_0": 8,
+        "Teacher_1": 7,
+        "Teacher_10": 1,
+        "Teacher_14": 5,
+        "Teacher_2": 9,
+        "Teacher_3": 6,
+        "Teacher_4": 2,
+        "Teacher_5": 4,
+        "Teacher_6": 3,
+        "Teacher_8": 10
+      }
+    },
+    "Student_19": {
+      "choice": {
+        "Teacher_1": 4,
+        "Teacher_10": 6,
+        "Teacher_11": 2,
+        "Teacher_12": 5,
+        "Teacher_13": 8,
+        "Teacher_2": 10,
+        "Teacher_4": 3,
+        "Teacher_5": 9,
+        "Teacher_6": 1,
+        "Teacher_9": 7
+      }
+    },
+    "Student_2": {
+      "choice": {
+        "Teacher_11": 10,
+        "Teacher_12": 6,
+        "Teacher_14": 1,
+        "Teacher_2": 2,
+        "Teacher_4": 3,
+        "Teacher_5": 8,
+        "Teacher_6": 5,
+        "Teacher_7": 9,
+        "Teacher_8": 7,
+        "Teacher_9": 4
+      }
+    },
+    "Student_3": {
+      "choice": {
+        "Teacher_0": 1,
+        "Teacher_10": 3,
+        "Teacher_12": 4,
+        "Teacher_14": 5,
+        "Teacher_2": 8,
+        "Teacher_3": 10,
+        "Teacher_4": 2,
+        "Teacher_7": 7,
+        "Teacher_8": 9,
+        "Teacher_9": 6
+      }
+    },
+    "Student_4": {
+      "choice": {
+        "Teacher_0": 10,
+        "Teacher_10": 2,
+        "Teacher_12": 7,
+        "Teacher_13": 3,
+        "Teacher_14": 8,
+        "Teacher_2": 1,
+        "Teacher_3": 9,
+        "Teacher_6": 4,
+        "Teacher_7": 6,
+        "Teacher_9": 5
+      }
+    },
+    "Student_5": {
+      "choice": {
+        "Teacher_1": 6,
+        "Teacher_11": 3,
+        "Teacher_12": 1,
+        "Teacher_14": 5,
+        "Teacher_2": 2,
+        "Teacher_3": 8,
+        "Teacher_4": 4,
+        "Teacher_5": 7,
+        "Teacher_7": 10,
+        "Teacher_8": 9
+      }
+    },
+    "Student_6": {
+      "choice": {
+        "Teacher_0": 8,
+        "Teacher_10": 2,
+        "Teacher_11": 10,
+        "Teacher_12": 1,
+        "Teacher_14": 6,
+        "Teacher_2": 4,
+        "Teacher_4": 5,
+        "Teacher_5": 3,
+        "Teacher_7": 9,
+        "Teacher_8": 7
+      }
+    },
+    "Student_7": {
+      "choice": {
+        "Teacher_0": 4,
+        "Teacher_1": 9,
+        "Teacher_10": 1,
+        "Teacher_11": 10,
+        "Teacher_12": 6,
+        "Teacher_13": 7,
+        "Teacher_3": 5,
+        "Teacher_5": 3,
+        "Teacher_7": 2,
+        "Teacher_9": 8
+      }
+    },
+    "Student_8": {
+      "choice": {
+        "Teacher_0": 7,
+        "Teacher_1": 3,
+        "Teacher_10": 8,
+        "Teacher_11": 6,
+        "Teacher_13": 4,
+        "Teacher_14": 1,
+        "Teacher_3": 10,
+        "Teacher_4": 5,
+        "Teacher_7": 9,
+        "Teacher_8": 2
+      }
+    },
+    "Student_9": {
+      "choice": {
+        "Teacher_0": 7,
+        "Teacher_1": 6,
+        "Teacher_12": 5,
+        "Teacher_13": 1,
+        "Teacher_14": 3,
+        "Teacher_4": 9,
+        "Teacher_5": 4,
+        "Teacher_7": 10,
+        "Teacher_8": 8,
+        "Teacher_9": 2
+      }
+    }
+  },
+  "teachers": {
+    "Teacher_0": {
+      "capacity": 2,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_1": {
+      "capacity": 0,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_10": {
+      "capacity": 3,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_11": {
+      "capacity": 4,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_12": {
+      "capacity": 2,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_13": {
+      "capacity": 2,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_14": {
+      "capacity": 3,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_2": {
+      "capacity": 1,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_3": {
+      "capacity": 1,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_4": {
+      "capacity": 0,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_5": {
+      "capacity": 0,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_6": {
+      "capacity": 1,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_7": {
+      "capacity": 0,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_8": {
+      "capacity": 1,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    },
+    "Teacher_9": {
+      "capacity": 0,
+      "preference": {
+        "Student_0": 1,
+        "Student_1": 2,
+        "Student_10": 11,
+        "Student_11": 12,
+        "Student_12": 13,
+        "Student_13": 14,
+        "Student_14": 15,
+        "Student_15": 16,
+        "Student_16": 17,
+        "Student_17": 18,
+        "Student_18": 19,
+        "Student_19": 20,
+        "Student_2": 3,
+        "Student_3": 4,
+        "Student_4": 5,
+        "Student_5": 6,
+        "Student_6": 7,
+        "Student_7": 8,
+        "Student_8": 9,
+        "Student_9": 10
+      }
+    }
+  }
+}

@@ -5,11 +5,11 @@ from pathlib import Path
 from calc_assignment_tools import (
     DA,
     MNK,
-    HNG,
+    HNG
 )
 
 # グローバル変数
-method = ['DA', 'HNG', 'MNK']
+method = ['DA', 'MNK', 'HNG']
 
 
 def is_file(string):
@@ -69,6 +69,13 @@ def get_arguments():
         配属の計算に用いるアルゴリズムを指定して下さい.
         '''
     )
+    p.add_argument(
+        '--verbose',
+        action='store_true',
+        help='''
+        配属結果を標準出力します.
+        '''
+    )
     args = p.parse_args()
     # 引数の前処理.
     args.input = Path(args.input)
@@ -92,28 +99,38 @@ def save(assignment, path, name):
     配属結果をjsonファイルで出力する.
     '''
     with (path/name).open('w') as f:
-        text = json.dumps(assignment, sort_keys=True,
-                          ensure_ascii=False, indent=2)
+        text = json.dumps(
+            assignment, sort_keys=True, ensure_ascii=False, indent=2
+        )
         f.write(text)
+    print(f'{(path/name).resolve()} saved.')
 
 
 def print_assignment(assignment, data):
-    msg = ''
+    msg = '{\n'
     for t in data['teachers'].keys():
-        msg += f'{t} (cap.: {data["teachers"][t]["capacity"]}): [\n'
+        msg += f'  \"{t}\" (capacity: {data["teachers"][t]["capacity"]}): [\n'
         for s in assignment[t]:
-            msg += f'  {s} (cho.: {data["students"][s]["choice"][t]}),\n'
-        msg += ']\n'
+            msg += f'    \"{s}\" (choice: {data["students"][s]["choice"][t]}),\n'
+        if len(assignment[t]) == 0:
+            msg = msg [:-1]
+        else:
+            msg = msg [:-2]
+            msg += '\n  '
+        msg += '],\n'
     if '未配属' in assignment.keys():
-        msg += '未配属: [\n'
+        msg += '  \"未配属\": [\n'
         for s in assignment['未配属']:
-            msg += f'  {s},\n'
-        msg += ']\n'
+            msg += f'    \"{s}\",\n'
+        msg = msg [:-2]
+        msg += '\n  ],\n'
+    msg = msg [:-2]
+    msg += '\n}'
     print(msg)
 
 
 if __name__ == '__main__':
-    # 引数処理
+    # 引数処理.
     args = get_arguments()
     # データを読み込む.
     data = load(args.input)
@@ -121,15 +138,16 @@ if __name__ == '__main__':
     if args.method == method[0]:
         assignment = DA(data)
     elif args.method == method[1]:
-        pass
+        assignment = MNK(data)
     else:
         pass
-    # print_assignment(assignment, data)
+    if args.verbose:
+        print_assignment(assignment, data)
     # 配属結果を出力.
-    name = f'assignment_{args.method}.json'
+    name = f'assignment_{args.method}_{args.input.stem}.json'
     name_list = [p.name for p in args.output.glob('*')]
     i = 1
     while name in name_list:
-        name = f'assignment_{args.method}({i}).json'
+        name = f'assignment_{args.method}_{args.input.stem}({i}).json'
         i += 1
     save(assignment, args.output, name)
