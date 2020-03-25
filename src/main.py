@@ -111,20 +111,24 @@ def print_assignment(assignment, data):
     for t in data['teachers'].keys():
         msg += f'  \"{t}\" (capacity: {data["teachers"][t]["capacity"]}): [\n'
         for s in assignment[t]:
-            msg += f'    \"{s}\" (choice: {data["students"][s]["choice"][t]}),\n'
+            if t in data["students"][s]["choice"].keys():
+                k = data["students"][s]["choice"][t]
+            else:
+                k = None
+            msg += f'    \"{s}\" (choice: {k}),\n'
         if len(assignment[t]) == 0:
-            msg = msg [:-1]
+            msg = msg[:-1]
         else:
-            msg = msg [:-2]
+            msg = msg[:-2]
             msg += '\n  '
         msg += '],\n'
     if '未配属' in assignment.keys():
         msg += '  \"未配属\": [\n'
         for s in assignment['未配属']:
             msg += f'    \"{s}\",\n'
-        msg = msg [:-2]
+        msg = msg[:-2]
         msg += '\n  ],\n'
-    msg = msg [:-2]
+    msg = msg[:-2]
     msg += '\n}'
     print(msg)
 

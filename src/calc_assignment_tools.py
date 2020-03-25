@@ -1,5 +1,6 @@
 import numpy as np
 from munkres import Munkres
+from pprint import pprint
 
 
 def DA(data):
@@ -10,7 +11,6 @@ def DA(data):
     assignment = {t: [] for t in list(data['teachers'].keys())}
     unassigned = list(data['students'].keys())
     limit = len(data['students'][list(data['students'].keys())[0]]['choice'])
-
     # 第1志望から順に未配属の学生を配属していく.
     for i in range(1, limit+1):
         for s in unassigned:
@@ -42,7 +42,127 @@ def DA(data):
 
 
 def MNK(data):
-    pass
+    '''
+    munkresモジュールを用いて割当問題の最適解を1つだけ導く関数.
+    '''
+    assignment = {t: [] for t in data['teachers'].keys()}
+    vars_dict = _get_vars_dict(data)
+    M = (100.-vars_dict['W']*vars_dict['A'])**2
+    sol = Munkres().compute(M)
+    for i, j in sol:
+        s = vars_dict['S'][i]
+        t = vars_dict['U'][j]
+        assignment[t].append(s)
+
+    _breakup(assignment, data)
+    return assignment
+
+
+def _breakup(assignment, data):
+    '''
+    教員に配属された学生数が定員を超えている場合, その学生を未配属にする関数.
+    '''
+    unassigned = []
+    for t, slist in assignment.items():
+        if len(slist) > data['teachers'][t]['capacity']:
+            unassigned += slist
+            assignment[t] = []
+
+    if len(unassigned) != 0:
+        assignment['未配属'] = unassigned
+
+
+def _get_vars_dict(data):
+    '''
+    dataを計算しやすい形式に変換する関数.
+    '''
+    vars_dict = {}
+    vars_dict['S'] = list(data['students'].keys())
+    vars_dict['T'] = list(data['teachers'].keys())
+    vars_dict['U'] = sum(
+        [
+            [t for _ in range(data['teachers'][t]['capacity'])]
+            for t in data['teachers'].keys()
+        ],
+        []
+    )
+    vars_dict['W'] = _calc_W(data, vars_dict['S'], vars_dict['U'])
+    vars_dict['A'] = _calc_A(data, vars_dict['S'], vars_dict['U'])
+    return vars_dict
+
+
+def _calc_W(data, S, T, limit=None, unchoice=20):
+    '''
+    学生sが教員tを志望する度合いW_stを元に持つ行列Wを計算して返す関数.
+    limitはWの元の上限と下限を定めるリストである.
+    '''
+    _limit = [100., 50.]
+    li = list(data['students'][S[0]]['choice'].values())
+    if max(li) >= unchoice:
+        msg = 'Value of argument unchoice must be greater than max choice ranking number.'
+        raise RuntimeError(msg)
+    ilimit = [min(li), unchoice]
+    msg = 'Argument limit must be list of which length is 2.'
+    if limit is None:
+        limit = _limit
+    elif type(limit) is not list:
+        raise RuntimeError(msg)
+    elif len(limit) != 2:
+        raise RuntimeError(msg)
+    olimit = limit
+    W = np.zeros((len(S), len(T)), float)
+    for i, s in enumerate(S):
+        for j, t in enumerate(T):
+            if t in data['students'][s]['choice'].keys():
+                k = int(data['students'][s]['choice'][t])
+            else:
+                k = unchoice
+            W[i, j] = _calc_w(k, ilimit, olimit)
+    return W
+
+
+def _calc_w(_in, ilimit, olimit):
+    '''
+    志望順位_inからW_stを計算する関数.
+    W_stは志望順位の単調減少関数.
+    '''
+    srope = (max(olimit)-min(olimit))/(min(ilimit)-max(ilimit))
+    intercept = max(olimit)-srope*min(ilimit)
+    return srope*_in+intercept
+
+
+def _calc_A(data, S, T, limit=None):
+    '''
+    教員tが学生sを選好する度合いA_stを元に持つ行列Aを計算して返す関数.
+    limitはAの元の上限と下限を定めるリストである.
+    '''
+    _limit = [1., 0.]
+    li = list(data['teachers'][T[0]]['preference'].values())
+    ilimit = [min(li), max(li)]
+    msg = 'Argument limit must be list of which length is 2.'
+    if limit is None:
+        limit = _limit
+    elif type(limit) is not list:
+        raise RuntimeError(msg)
+    elif len(limit) != 2:
+        raise RuntimeError(msg)
+    olimit = limit
+    A = np.zeros((len(S), len(T)), float)
+    for i, s in enumerate(S):
+        for j, t in enumerate(T):
+            k = data['teachers'][t]['preference'][s]
+            A[i, j] = _calc_a(k, ilimit, olimit)
+    return A
+
+
+def _calc_a(_in, ilimit, olimit):
+    '''
+    選好順位_inからA_stを計算する関数.
+    A_stは選好順位の単調減少関数.
+    '''
+    srope = (max(olimit)-min(olimit))/(min(ilimit)-max(ilimit))
+    intercept = max(olimit)-srope*min(ilimit)
+    return srope*_in+intercept
 
 
 def HNG(data):
@@ -50,99 +170,6 @@ def HNG(data):
 
 
 """
-
-    class LAP:
-    '''
-    研究室配属問題を解くためのクラス.
-    '''
-
-    def __init__(self, method='DA',
-                 min_rank=1, max_rank=10, unranked=20,
-                 max_wishness=100., min_wishness=50.,
-                 max_acceptability=1., min_acceptability=0.):
-        # 定数
-        self.method = method
-        self.dict_teachers = None
-        self.dict_students = None
-        self.S_labels = None
-        self.T_labels = None
-        self.effective_T_labels = None
-        self.min_rank = min_rank  # 希望順位の最小値(最高希望順位)
-        self.max_rank = max_rank  # 希望順位の最大値(最低希望順位)
-        self.unranked = unranked  # 希望外の値
-        self.min_preference = 1  # 選好順位の最小値(最低選好順位)
-        self.max_preference = None  # 選好順位の最大値(最高選好順位)
-        self.max_wishness = max_wishness
-        self.min_wishness = min_wishness
-        self.max_acceptability = max_acceptability
-        self.min_acceptability = min_acceptability
-        # 変数
-        self.assignment = None
-        self.x = None
-        self.W = None
-        self.A = None
-        self.U = None
-        self.result = None
-
-    def prep(self):
-        '''
-        前処理.
-        '''
-        self.S_labels = list(self.dict_students.keys())
-        self.T_labels = list(self.dict_teachers.keys())
-        self.effective_T_labels = []
-        for teacher in self.T_labels:
-            capacity = int(self.dict_teachers[teacher]['capacity'])
-            for _ in range(capacity):
-                self.effective_T_labels.append(teacher)
-        self.max_preference = len(self.S_labels)
-        self.U = np.array([int(self.dict_teachers[teacher]['capacity'])
-                           for teacher in self.T_labels])
-        self.reset_x_and_assignment()
-
-    def reset_x_and_assignment(self):
-        self.assignment = {teacher: [] for teacher in self.T_labels}
-        self.x = np.zeros((len(self.S_labels), len(self.T_labels)), int)
-
-    def set_W_and_A(self, S_labels, T_labels):
-        '''
-        WとAに要素を代入する関数.
-        '''
-        self.W = np.zeros((len(S_labels), len(T_labels)), float)
-        self.A = np.zeros((len(S_labels), len(T_labels)), float)
-        for s, student in enumerate(S_labels):
-            dict_rank = {teacher: int(rank) for rank, teacher
-                         in self.dict_students[student].items()}
-            for t, teacher in enumerate(T_labels):
-                if teacher in dict_rank.keys():
-                    rank = int(dict_rank[teacher])
-                else:
-                    rank = self.unranked
-                self.W[s, t] = self.wishness(rank)
-                preference = self.dict_teachers[teacher][
-                    'preference'][student]
-                self.A[s, t] = self.acceptability(preference)
-
-    def wishness(self, rank):
-        '''
-        rankからwishnessを計算する関数.
-        wishnessはrankの単調減少関数.
-        '''
-        srope = (self.max_wishness-self.min_wishness) / \
-            (self.min_rank - self.unranked)
-        intercept = self.max_wishness-srope*self.min_rank
-        return srope*rank+intercept
-
-    def acceptability(self, preference):
-        '''
-        preferenceからacceptabilityを計算する関数.
-        acceptabilityはpreferenceの単調増加関数.
-        '''
-        srope = ((self.max_acceptability-self.min_acceptability)
-                 / (self.max_preference-self.min_preference))
-        intercept = self.max_acceptability-srope*self.max_preference
-        return srope*preference+intercept
-
     def square_sum_of_dissatisfaction(self):
         '''
         不満の最小自乗和
@@ -154,14 +181,6 @@ def HNG(data):
                 _sum += self.x[s, t]*(100.-self.A[s, t]*self.W[s, t])**2
         return _sum
 
-    def check_capacity(self):
-        '''
-        x, Uを用いて定員を超過した研究室があるか判定する.
-        '''
-        for t in range(len(self.T_labels)):
-            capacity = self.U[t]
-            if sum(self.x[:, t]) > capacity:
-                raise RuntimeError('定員を超過した研究室が存在します.')
 
     def assignment2x(self):
         '''
@@ -183,31 +202,5 @@ def HNG(data):
             for t, teacher in enumerate(self.T_labels):
                 if self.x[s, t] == 1:
                     self.assignment[teacher].append(student)
-
-
-    def MNK(self, verbose=False):
-        '''
-        munkresモジュールを用いて割当問題の最適解を1つだけ導く.
-        '''
-        self.reset_x_and_assignment()
-        self.set_W_and_A(self.S_labels, self.effective_T_labels)
-        M = (100.-self.W*self.A)**2
-        sol = Munkres().compute(M)
-        for s, t in sol:
-            teacher = self.effective_T_labels[t]
-            t = self.T_labels.index(teacher)
-            self.x[s, t] = 1
-
-        self.check_capacity()
-        self.x2assignment()
-        ssd = self.square_sum_of_dissatisfaction()
-
-        self.result = {}
-        self.result['method'] = self.method
-        self.result['assignment'] = self.assignment
-        self.result['SSD'] = ssd
-
-        if verbose:
-            self.print_result()
 
 """
