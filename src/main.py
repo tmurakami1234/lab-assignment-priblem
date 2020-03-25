@@ -5,7 +5,8 @@ from pathlib import Path
 from calc_assignment_tools import (
     DA,
     MNK,
-    HNG
+    HNG,
+    square_sum_of_dissatisfaction
 )
 
 # グローバル変数
@@ -147,9 +148,13 @@ if __name__ == '__main__':
     elif args.method == method[1]:
         assignment = MNK(data)
     else:
-        pass
+        assignment = HNG(data)
+    # 配属結果を標準出力.
     if args.verbose:
         print_assignment(assignment, data)
+        if '未配属' not in assignment.keys():
+            ssd = square_sum_of_dissatisfaction(assignment, data)
+            print(f'Square sum of dissatisfaction:\n  {ssd}')
     # 配属結果を出力.
     name = f'assignment_{args.method}_{args.input.stem}.json'
     name_list = [p.name for p in args.output.glob('*')]

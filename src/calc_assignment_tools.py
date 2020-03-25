@@ -58,6 +58,55 @@ def MNK(data):
     return assignment
 
 
+def HNG(data):
+    '''
+    ハンガリー法を用いて割当問題の最適解を全て導く関数.
+    ハンガリー法はhungarian関数で実装されている.
+    '''
+    assignments = []
+    vars_dict = _get_vars_dict(data)
+    M = (100.-vars_dict['W']*vars_dict['A'])**2
+    sols = Hungarian(M).compute()
+    for sol in sols:
+        assignment = {t: [] for t in data['teachers'].keys()}
+        for i, j in sol:
+            s = vars_dict['S'][i]
+            t = vars_dict['U'][j]
+            assignment[t].append(s)
+
+        _breakup(assignment, data)
+        if not _overlapping(assignment, assignments):
+            assignments.append(assignment)
+
+    return assignments[0]
+
+
+def square_sum_of_dissatisfaction(assignment, data):
+    '''
+    不満の最小自乗和を計算する関数
+    '''
+    vars_dict = _get_vars_dict(data)
+    _sum = 0.
+    for i, s in enumerate(vars_dict['S']):
+        for j, t in enumerate(vars_dict['U']):
+            x = 1 if s in assignment[t] else 0
+            _sum += x*(100.-vars_dict['W'][i, j]*vars_dict['A'][i, j])**2
+    return _sum
+
+
+def _overlapping(assignment, assignments):
+    overlapping = False
+    for a in assignments:
+        overlapping = True
+        for t, slist in a.items():
+            if set(assignment[t]) != set(slist):
+                overlapping = False
+                break
+        if overlapping:
+            return overlapping
+    return overlapping
+
+
 def _breakup(assignment, data):
     '''
     教員に配属された学生数が定員を超えている場合, その学生を未配属にする関数.
@@ -165,42 +214,152 @@ def _calc_a(_in, ilimit, olimit):
     return srope*_in+intercept
 
 
-def HNG(data):
-    pass
+class Hungarian:
+    '''
+    hungarian algorithm.
+    '''
 
+    def __init__(self, matrix):
+        self.matrix = np.array(matrix)
+        nrow, ncol = matrix.shape
+        if nrow != ncol:
+            raise RuntimeError('正方行列を入力して下さい.')
+        self.N = nrow
+        self.binary_matrix = np.zeros((self.N, self.N, 2), int)
 
-"""
-    def square_sum_of_dissatisfaction(self):
+    def step1(self):
         '''
-        不満の最小自乗和
+        各行の要素からその行の最小値を引く.
+        各列の要素からその列の最小値を引く.
         '''
-        self.set_W_and_A(self.S_labels, self.T_labels)
-        _sum = 0.
-        for s in range(len(self.S_labels)):
-            for t in range(len(self.T_labels)):
-                _sum += self.x[s, t]*(100.-self.A[s, t]*self.W[s, t])**2
-        return _sum
+        for i in range(self.N):
+            self.matrix[i, :] -= np.min(self.matrix[i, :])
+        for j in range(self.N):
+            self.matrix[:, j] -= np.min(self.matrix[:, j])
 
+    def step2(self):
+        '''
+        割当が存在すれば全ての割当を出力する.
+        '''
+        roots = {'0': []}
+        for i in range(self.N):
+            temp = []
+            for j in range(self.N):
+                if self.matrix[i, j] == 0:
+                    temp.append(j)
+            keys = list(roots.keys())
+            for key in keys:
+                for n, j in enumerate(temp):
+                    if j not in roots[key]:
+                        new_key = f'{key}{n}'
+                        roots[new_key] = list(roots[key])
+                        roots[new_key].append(j)
+            for key in keys:
+                roots.pop(key)
+        sols = []
+        for key in roots.keys():
+            if len(roots[key]) == self.N:
+                sol = [(i, j) for i, j in enumerate(roots[key])]
+                sols.append(sol)
+        return sols
 
-    def assignment2x(self):
+    def step3(self):
         '''
-        assignmentをxに変換する関数.
+        値が0である要素を出来るだけ少ない数の線で隠す.
         '''
-        self.x = np.zeros((len(self.S_labels), len(self.T_labels)), int)
-        for teacher in self.assignment.keys():
-            for student in self.assignment[teacher]:
-                s = self.S_labels.index(student)
-                t = self.T_labels.index(teacher)
-                self.x[s, t] = 1
+        for i in range(self.N):
+            for j in range(self.N):
+                self.binary_matrix[i, j, 0] = 0
+                self.binary_matrix[i, j, 1] = 0
+        for i in range(self.N):
+            for j in range(self.N):
+                if self.matrix[i, j] == 0:
+                    self.binary_matrix[i, j, 0] = 1
 
-    def x2assignment(self):
-        '''
-        xをassignmentに変換する関数.
-        '''
-        self.assignment = {teacher: [] for teacher in self.T_labels}
-        for s, student in enumerate(self.S_labels):
-            for t, teacher in enumerate(self.T_labels):
-                if self.x[s, t] == 1:
-                    self.assignment[teacher].append(student)
+        max_val = {'row': {'ind': 0, 'val': 0}, 'col': {'ind': 0, 'val': 0}}
+        while True:
+            _next = 'row' if np.random.rand() < 0.5 else 'col'
+            max_val['row']['val'] = 0
+            max_val['col']['val'] = 0
+            for i in range(self.N):
+                val = np.sum(self.binary_matrix[i, :, 0])
+                if val > max_val['row']['val']:
+                    max_val['row']['val'] = val
+                    max_val['row']['ind'] = i
+            for j in range(self.N):
+                val = np.sum(self.binary_matrix[:, j, 0])
+                if val > max_val['col']['val']:
+                    max_val['col']['val'] = val
+                    max_val['col']['ind'] = j
 
-"""
+            if max_val['row']['val'] == 0 and max_val['col']['val'] == 0:
+                break
+
+            if ((max_val['row']['val'] > max_val['col']['val']) or
+                (max_val['row']['val'] == max_val['col']['val']
+                 and _next == 'row')):
+                i = max_val['row']['ind']
+                for j in range(self.N):
+                    self.binary_matrix[i, j, 0] = 0
+                    self.binary_matrix[i, j, 1] += 1
+            else:
+                j = max_val['col']['ind']
+                for i in range(self.N):
+                    self.binary_matrix[i, j, 0] = 0
+                    self.binary_matrix[i, j, 1] += 1
+
+    def step4(self):
+        '''
+        線で隠れていない部分から最小値min_valを求める.
+        線で隠れていない要素からmin_valを引き,
+        2本の線で隠されている要素にmin_valを足す.
+        '''
+        min_val = np.max(self.matrix)
+        for i in range(self.N):
+            for j in range(self.N):
+                if (self.binary_matrix[i, j, 1] == 0 and
+                        min_val > self.matrix[i, j]):
+                    min_val = self.matrix[i, j]
+
+        for i in range(self.N):
+            for j in range(self.N):
+                if self.binary_matrix[i, j, 1] == 0:
+                    self.matrix[i, j] -= min_val
+                elif self.binary_matrix[i, j, 1] == 2:
+                    self.matrix[i, j] += min_val
+
+    def print_bm(self, channel):
+        '''
+        binary_matrixを標準出力する関数.
+        channel=0でmatrixの要素の値が0である箇所を1とした行列を出力し,
+        channel=1でその要素が何本の線で覆われたかを表す行列を出力する.
+        '''
+        text = f'BINARY_MATRIX_{channel}\n'
+        for i in range(self.N):
+            for j in range(self.N):
+                text += f'{self.binary_matrix[i,j,channel]:d} '
+            text += '\n'
+        print(text[:-1])
+
+    def print_m(self):
+        '''
+        matrixを標準出力する関数.
+        '''
+        text = f'MATRIX\n'
+        for i in range(self.N):
+            for j in range(self.N):
+                text += f'{self.matrix[i,j]:8.3f} '
+            text += '\n'
+        print(text[:-1])
+
+    def compute(self):
+        '''
+        割当を計算する関数.
+        '''
+        self.step1()
+        while True:
+            sols = self.step2()
+            if len(sols) != 0:
+                return sols
+            self.step3()
+            self.step4()
