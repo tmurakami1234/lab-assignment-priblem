@@ -79,9 +79,9 @@ optional arguments:
 
 `--method`には, 研究室配属を計算するアルゴリズムを指定します. 指定可能なそれぞれのアルゴリズムはcalc_assignment_tools.pyに実装されています. 以下は各アルゴリズムの説明です.
 
-- DA
-- MNK
-- HNG
+- DA: deferred acceptance algorithmにより配属を決定する.
+- MNK: munkresモジュールを用いて割当問題の最適解を1つだけ導く.
+- HNG: ハンガリー法を用いて割当問題の最適解を全て導く. 
 
 ## デモデータの作製
 
@@ -116,8 +116,8 @@ optional arguments:
 
 `--opt`には, デモデータ作製時のオプションを指定します. 以下は各オプションの説明です.
 
-- random
-- separate
+- random: 全ての生徒が教員に対する志望順位をランダムに決定する.
+- separate: DAを用いた場合, 全ての生徒が第1志望の教員に配属される解が導かれる.
 
 ## csvファイルをmain.pyの入力に使えるjsonファイルに変換
 
