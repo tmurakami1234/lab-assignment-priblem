@@ -140,7 +140,7 @@ convert2json.pyを用いて, `.xlsx`, `.xls`, `.csv`, `.tsv`のいずれかの�
 |Teacher_4|2|Student_1|Student_2|Student_4|Student_3|
 |Teacher_5|0|Student_1|Student_2|Student_4|Student_3|
 
-学生に対する教員の選好順位の数は生徒数と等しく成るように記述して下さい.
+学生に対する教員の選好順位の数は生徒数と等しく成るように記述して下さい (全ての教員の選好順位が同じ順列である必要はありません.).
 
 
 上の形式の表を, 例えば, table.xlsで保存してconvert2json.pyにより変換すると, 以下のようなjsonファイルが作製されます.
