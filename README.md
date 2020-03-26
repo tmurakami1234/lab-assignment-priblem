@@ -125,3 +125,91 @@ convert2json.pyを用いて, `.xlsx`, `.xls`, `.csv`, `.tsv`のいずれかの�
 |Teacher_3|2|Student_1|Student_2|Student_4|Student_3|
 |Teacher_4|2|Student_1|Student_2|Student_4|Student_3|
 |Teacher_5|0|Student_1|Student_2|Student_4|Student_3|
+
+上の形式の表を, 例えば, '.xls'で保存してconvert2json.pyにより変換すると, 以下のようなjsonファイルが作製されます.
+
+```bash
+$ python lab-assignment-problem/src/convert2json.py --input table.xls --output output
+$ ls output
+table.json
+$ cat output/table.json 
+{
+  "students": {
+    "Student_1": {
+      "choice": {
+        "Teacher_1": 1,
+        "Teacher_2": 2,
+        "Teacher_3": 3
+      }
+    },
+    "Student_2": {
+      "choice": {
+        "Teacher_1": 1,
+        "Teacher_3": 2,
+        "Teacher_4": 3
+      }
+    },
+    "Student_3": {
+      "choice": {
+        "Teacher_1": 2,
+        "Teacher_2": 1,
+        "Teacher_5": 3
+      }
+    },
+    "Student_4": {
+      "choice": {
+        "Teacher_1": 2,
+        "Teacher_2": 3,
+        "Teacher_3": 1
+      }
+    }
+  },
+  "teachers": {
+    "Teacher_1": {
+      "capacity": 2,
+      "preference": {
+        "Student_1": 1,
+        "Student_2": 2,
+        "Student_3": 4,
+        "Student_4": 3
+      }
+    },
+    "Teacher_2": {
+      "capacity": 1,
+      "preference": {
+        "Student_1": 1,
+        "Student_2": 2,
+        "Student_3": 4,
+        "Student_4": 3
+      }
+    },
+    "Teacher_3": {
+      "capacity": 2,
+      "preference": {
+        "Student_1": 1,
+        "Student_2": 2,
+        "Student_3": 4,
+        "Student_4": 3
+      }
+    },
+    "Teacher_4": {
+      "capacity": 2,
+      "preference": {
+        "Student_1": 1,
+        "Student_2": 2,
+        "Student_3": 4,
+        "Student_4": 3
+      }
+    },
+    "Teacher_5": {
+      "capacity": 0,
+      "preference": {
+        "Student_1": 1,
+        "Student_2": 2,
+        "Student_3": 4,
+        "Student_4": 3
+      }
+    }
+  }
+}
+```
