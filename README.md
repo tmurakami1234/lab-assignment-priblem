@@ -25,7 +25,8 @@ optional arguments:
   -h, --help       show this help message and exit
   --input FILE     入力ファイルを指定して下さい. (default: None)
   --output DIR     出力ディレクトリを指定して下さい. (default: ./)
-  --method STRING  配属の計算に用いるアルゴリズムを指定して下さい. (default: DA)
+  --method {DA,MNK,HNG}
+                   配属の計算に用いるアルゴリズムを指定して下さい. (default: DA)
   --verbose        配属結果を標準出力します. (default: False)
 ```
 
@@ -75,6 +76,13 @@ optional arguments:
 
 "Student_1"や"Teacher_1"等はそれぞれ生徒, 教員の名前に該当します. 各生徒名が持つ"choice"のvalueには, 生徒が志望する教員とその教員の志望順位がペアで記録されています. 各教員名が持つ"capacity"のvalueには, その教員が受け持てる学生の定員数が記録されており, "preference"のvalueには, その教員が選好する学生とその学生の選好順位がペアで記録されています. 選好順位は, 例えば, 成績順で設定します.
 
+
+`--method`には, 研究室配属を計算するアルゴリズムを指定します. 指定可能なそれぞれのアルゴリズムはcalc_assignment_tools.pyに実装されています. 以下は各アルゴリズムの説明です.
+
+- DA
+- MNK
+- HNG
+
 ## デモデータの作製
 
 make_demodata.pyを用いて研究室配属問題のデモデータを作ることが出来ます.
@@ -102,8 +110,14 @@ optional arguments:
   --ns INT      生徒数を指定して下さい. (default: 20)
   --nt INT      教員数を指定して下さい. (default: 15)
   --limit INT   志望順位の数を指定して下さい. (default: 10)
-  --opt STRING  デモデータ作製時のオプションを指定して下さい. (default: random)
+  --opt {random,separate}
+                デモデータ作製時のオプションを指定して下さい. (default: random)
 ```
+
+`--opt`には, デモデータ作製時のオプションを指定します. 以下は各オプションの説明です.
+
+- random
+- separate
 
 ## csvファイルをmain.pyの入力に使えるjsonファイルに変換
 
@@ -126,7 +140,10 @@ convert2json.pyを用いて, `.xlsx`, `.xls`, `.csv`, `.tsv`のいずれかの�
 |Teacher_4|2|Student_1|Student_2|Student_4|Student_3|
 |Teacher_5|0|Student_1|Student_2|Student_4|Student_3|
 
-上の形式の表を, 例えば, '.xls'で保存してconvert2json.pyにより変換すると, 以下のようなjsonファイルが作製されます.
+学生に対する教員の選好順位の数は生徒数と等しく成るように記述して下さい.
+
+
+上の形式の表を, 例えば, table.xlsで保存してconvert2json.pyにより変換すると, 以下のようなjsonファイルが作製されます.
 
 ```bash
 $ python lab-assignment-problem/src/convert2json.py --input table.xls --output output
@@ -212,4 +229,18 @@ $ cat output/table.json
     }
   }
 }
+```
+
+convert2json.pyのヘルプは次のコマンドで確認出来ます.
+
+```bash
+$ python lab-assignment-problem/src/convert2json.py --help
+usage: convert2json.py [-h] --input FILE [--output DIR]
+
+xlsxやxls, csv, tsvファイルを変換して, main.pyの入力に指定可能なjsonファイルを出力するスクリプト.
+
+optional arguments:
+  -h, --help    show this help message and exit
+  --input FILE  入力ファイルを指定して下さい. (default: None)
+  --output DIR  出力ディレクトリを指定して下さい. (default: ./)
 ```

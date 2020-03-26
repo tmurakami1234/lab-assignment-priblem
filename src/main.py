@@ -65,8 +65,7 @@ def get_arguments():
         type=str,
         choices=method,
         default=method[0],
-        metavar='STRING',
-        help='''
+        help=f'''
         配属の計算に用いるアルゴリズムを指定して下さい.
         '''
     )

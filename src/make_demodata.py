@@ -77,7 +77,6 @@ def get_arguments():
         type=str,
         choices=opt,
         default=opt[0],
-        metavar='STRING',
         help='''
         デモデータ作製時のオプションを指定して下さい.
         '''
