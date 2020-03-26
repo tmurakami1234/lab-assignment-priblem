@@ -95,6 +95,9 @@ def square_sum_of_dissatisfaction(assignment, data):
 
 
 def _overlapping(assignment, assignments):
+    '''
+    assignmentがassignmentsに含まれる場合True, そうでなければFalseを返す関数.
+    '''
     overlapping = False
     for a in assignments:
         overlapping = True
