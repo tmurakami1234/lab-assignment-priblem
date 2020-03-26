@@ -107,3 +107,21 @@ optional arguments:
 
 ## csvファイルをmain.pyの入力に使えるjsonファイルに変換
 
+convert2json.pyを用いて, `.xlsx`, `.xls`, `.csv`, `.tsv`のいずれかのフォーマットで作製した次の形式の表をmain.pyの`--input`に指定可能なjsonファイルに変換出来ます.
+
+|||||||
+|--|--|--|--|--|--|
+||choice|||||
+||1|2|3|||
+|Student_1|Teacher_1|Teacher_2|Teacher_3|||
+|Student_2|Teacher_1|Teacher_3|Teacher_4|||
+|Student_3|Teacher_2|Teacher_1|Teacher_5|||
+|Student_4|Teacher_3|Teacher_1|Teacher_2|||
+|||||||
+||capacity|preference||||
+|||1|2|3|4|
+|Teacher_1|2|Student_1|Student_2|Student_4|Student_3|
+|Teacher_2|1|Student_1|Student_2|Student_4|Student_3|
+|Teacher_3|2|Student_1|Student_2|Student_4|Student_3|
+|Teacher_4|2|Student_1|Student_2|Student_4|Student_3|
+|Teacher_5|0|Student_1|Student_2|Student_4|Student_3|
